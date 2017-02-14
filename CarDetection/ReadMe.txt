@@ -1,3 +1,2 @@
-Run the program:
-change the location to this file
-java CarDetection image1.JPG image2.JPG
+Detect the car by using model.
+Detect the motion and speed of a moving car.
