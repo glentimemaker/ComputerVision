@@ -3,7 +3,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.*;
 import java.io.*;
 
-
+//Main Class
 public class CarDetection {
 	
 	
@@ -19,15 +19,16 @@ public class CarDetection {
 		float speed;
 		
 	      try {
-	    	  
-	    	  BufferedImage image1=ImageIO.read (new File (argv[0]));
+	    	  //Input Image
+     	  	  BufferedImage image1=ImageIO.read (new File (argv[0]));
 	    	  BufferedImage image2=ImageIO.read (new File (argv[1]));
 	    	  image1 = convertToGrey(image1);
 	    	  image2 = convertToGrey(image2);
 	       
 	    	  BufferedImage image_model=ImageIO.read (new File ("model.JPG"));
 	    	  image_model = convertToGrey(image_model);
-	       
+	          
+		  //Generate the model
 	    	  int[] hist_model = new int[256];
 	    	  hist_model = getHistogram(image_model);
 	    	  
@@ -36,15 +37,18 @@ public class CarDetection {
 	    	  
 	    	  System.out.println("Searching...It takes around 2 minutes....");
 	    	  System.out.println();
+		  //Use the model to detect the car
 	    	  image1_location = detectCar(hist_model, model_width, model_height, image1);
 	    	  image2_location = detectCar(hist_model, model_width, model_height, image2);
+		  
+		  //Calculate the distance
 	    	  int distance = Math.abs(image1_location-image2_location);
 	    	  System.out.println("Location 1: #" + image1_location + " pixel"+'\n');
 	    	  System.out.println("Location 2: #" + image2_location + " pixel"+'\n');
 	    	  System.out.println("Distance: " + distance + " pixel"+'\n');
 	    	  System.out.println("Total width: " + image1.getWidth() + " pixel"+'\n');
 	    	  
-	        
+	          //Calculate the speed of the car
 	    	  speed = calculateSpeed(distance, image1.getWidth());
 	    	  System.out.println("Speed: " + speed + " m/s"+'\n');
 	       
